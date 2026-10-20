@@ -1,58 +1,67 @@
-# Huellitas · App de adopción
+# Huellitas · Aplicación web de adopción
 
-Diseño de una app móvil para adoptar perros y gatos rescatados en Tulancingo de Bravo, Hidalgo. Es la continuación del sitio web [Huellitas Tulancingo](https://arturomqii005.github.io/Huellitas-WEB/) y conserva su identidad de **lotería mexicana**: cada peludo es una carta con número, nombre y un verso.
+Propuesta de diseño de una aplicación web responsiva para adoptar perros y gatos rescatados en Tulancingo de Bravo, Hidalgo. Es la continuación del sitio web [Huellitas Tulancingo](https://arturomqii005.github.io/Huellitas-WEB/) y conserva su identidad de **lotería mexicana**: cada peludo es una carta con número, nombre y un verso.
 
 - **Integrantes:** Luis Arturo Jiménez Morales y Sebastián Banda Pasquel
 - **Institución:** Universidad Politécnica de Tulancingo
-- **Herramienta de diseño:** Google Stitch
+- **Herramientas de IA:** Google Stitch (interfaces) y Claude (especificación y prompts)
 - **Sitio web del proyecto:** https://arturomqii005.github.io/Huellitas-WEB/
 
-> Proyecto académico. Los animales, refugios, cifras y contactos son ilustrativos.
+> Proyecto académico. Los animales, refugios, cifras, cuentas y contactos son ilustrativos.
 
 ## Contenido del repositorio
 
 | Archivo | Qué contiene |
 | --- | --- |
-| `DESIGN.md` | Sistema de diseño en formato DESIGN.md (colores, tipografía, espacios, formas y componentes) y la especificación completa de la app: módulos, pantallas, flujos, modelo de datos, accesibilidad y prompts por pantalla. |
+| [`DESIGN.md`](DESIGN.md) | Especificación completa en formato DESIGN.md: objetivo, roles y permisos, colores, tipografía, componentes, navegación, módulos, lineamientos UX/UI, reglas del sistema y prompts por pantalla. |
+| [`EVIDENCIAS.md`](EVIDENCIAS.md) | Registro del uso de IA: herramientas, prompts principales y modificaciones hechas para mejorar la propuesta inicial. |
+| `evidencias/` | Capturas del proceso en Google Stitch y GitHub. |
 | `README.md` | Esta descripción. |
 
 ## El problema
 
-En Tulancingo, los perros y gatos rescatados se anuncian en grupos de Facebook, donde cada aviso se pierde en pocas horas. Quien quiere adoptar no sabe qué requisitos piden los refugios, y quien quiere ayudar no sabe qué hace falta.
+En Tulancingo, los perros y gatos rescatados se anuncian en grupos de Facebook, donde cada aviso se pierde en pocas horas. Quien quiere adoptar no sabe qué requisitos piden los refugios, quien quiere ayudar no sabe qué hace falta y los refugios reciben mensajes sueltos sin una forma ordenada de revisar solicitudes.
 
-## La propuesta
+## Objetivo
 
-- **La baraja:** se deslizan las cartas de los peludos, como en un juego, con un porcentaje de compatibilidad que explica por qué.
-- **Solicitud guiada** en cinco pasos y seguimiento en tiempo real: Enviada → En revisión → Entrevista → Visita al hogar → ¡Adoptado!
-- **Ayudar:** necesidades del mes, donaciones, padrinazgo, voluntariado y hogar temporal.
-- **Reportar:** aviso rápido de animales en la calle, perdidos o en peligro, con foto y ubicación.
-- **Mi tabla:** una tabla de lotería 4 × 4 donde cada buena acción pone un frijol y se ganan insignias.
-- **Panel del refugio:** publicación de peludos con un generador de cartas y tablero de solicitudes.
+Diseñar una aplicación web responsiva que centralice la adopción responsable de perros y gatos rescatados en Tulancingo, conectando a adoptantes, ayudantes y refugios en un mismo sistema con funciones y permisos definidos para cada rol.
+
+## Roles
+
+| Rol | Qué hace | Su interfaz |
+| --- | --- | --- |
+| **Visitante** | Explora la baraja, las fichas y las historias sin cuenta | Portada pública con barra superior y botones Entrar y Crear cuenta |
+| **Adoptante** | Adopta, da seguimiento a sus solicitudes, dona, apadrina y reporta animales | Barra superior en computadora y barra inferior en celular |
+| **Refugio** | Publica peludos con el generador de cartas, revisa solicitudes y pide lo que necesita | Panel con menú lateral añil |
+| **Administrador** | Verifica refugios, gestiona usuarios y roles, modera contenido y consulta la bitácora | Panel con menú lateral añil hondo |
+
+La matriz completa de permisos y restricciones está en la sección **Roles y permisos** del [DESIGN.md](DESIGN.md).
 
 ## Módulos
 
-1. Bienvenida y perfil de hogar
-2. Inicio · La baraja
-3. Adoptar · La tabla
-4. La carta · Ficha del peludo
-5. Solicitud de adopción
-6. Mis solicitudes
-7. Ayudar · Echa la mano
-8. Reportar
-9. Historias · Ya tienen casa
-10. Yo · Mi tabla
-11. Mi peludo (después de adoptar)
-12. Avisos
-13. Ajustes y accesibilidad
-14. Panel del refugio (tablet y web)
+1. Inicio público y acceso
+2. Perfil de hogar
+3. Inicio · La baraja
+4. Adoptar · La tabla
+5. La carta · Ficha del peludo
+6. Solicitud de adopción
+7. Mis solicitudes
+8. Ayudar · Echa la mano
+9. Reportar
+10. Historias · Ya tienen casa
+11. Yo · Mi tabla
+12. Mi peludo (después de adoptar)
+13. Avisos y ajustes
+14. Panel del refugio
+15. Administración
 
-## Paleta
+## Paleta y tipografía
 
 | Tinta | Código | Uso |
 | --- | --- | --- |
-| Añil | `#1F2A6B` | Texto, contornos, barra inferior y reverso de las cartas |
+| Añil | `#1F2A6B` | Texto, contornos, menús y reverso de las cartas |
 | Rosa mexicano | `#D6006F` | Botón principal y acciones |
-| Cempasúchil | `#FFB30F` | Botón Reportar, compatibilidad y pestaña activa |
+| Cempasúchil | `#FFB30F` | Botón Reportar, compatibilidad y opción activa |
 | Papel | `#FFFBF2` | Fondo general |
 
 Tipografías: **Alfa Slab One** para títulos y nombres de las cartas, y **Archivo** para el texto.
@@ -61,8 +70,7 @@ Tipografías: **Alfa Slab One** para títulos y nombres de las cartas, y **Archi
 
 1. En [Google Stitch](https://stitch.withgoogle.com), sube `DESIGN.md` en **Upload a DESIGN.md file**.
 2. En **Add website**, agrega el sitio del proyecto como referencia de estilo.
-3. Escribe el prompt de la app y elige el modo **App**.
-4. Para generar pantallas sueltas, usa los prompts de la sección **Prompts por pantalla** del DESIGN.md.
+3. Genera cada pantalla con los prompts de la sección **Prompts por pantalla**, en modo Web o App según se indica.
 
 El archivo se validó con el verificador oficial del formato:
 
