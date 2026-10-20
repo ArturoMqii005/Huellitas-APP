@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="web_dashboard" name="shell-type"/>
+<title>Huellitas · Verificación de refugios (Administrador)</title>
+<!-- Tipografías Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&amp;family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "papel-crema": "#FFFBF2",
+            "anil-hondo": "#141C4D",
+            "anil-linea": "#1F2A6B",
+            "anil-claro": "#E4E7F6",
+            "cempasuchil": "#FFB30F",
+            "cempasuchil-claro": "#FFF2CF",
+            "cempasuchil-oscuro": "#734e00",
+            "frijol-marcador": "#6B3F1D",
+            "rosa-mexicano": "#D6006F",
+            "rosa-pressed": "#A8005A",
+            "rosa-suave": "#FDE6F0",
+            "verde-nopal": "#17734A",
+            "verde-suave": "#DDF3E6",
+            "peligro-bg": "#FDE8E6",
+            "peligro-borde": "#B42318",
+            "cartulina": "#FFFFFF"
+          },
+          fontFamily: {
+            "alfa": ["'Alfa Slab One'", "serif"],
+            "archivo": ["'Archivo'", "sans-serif"]
+          },
+          boxShadow: {
+            "dura-anil": "4px 4px 0px #1F2A6B",
+            "dura-anil-sm": "2px 2px 0px #1F2A6B",
+            "dura-anil-lg": "5px 5px 0px #1F2A6B",
+            "dura-cempasuchil": "4px 4px 0px #FFB30F",
+            "dura-peligro": "3px 3px 0px #B42318"
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+        background-color: #FFFBF2;
+        font-family: 'Archivo', sans-serif;
+        color: #1F2A6B;
+      }
+      body {
+        background-color: #FFFBF2;
+        /* Textura serigráfica de grano sutil */
+        background-image: radial-gradient(#141C4D 0.5px, transparent 0.5px), radial-gradient(#FFB30F 0.5px, #FFFBF2 0.5px);
+        background-size: 24px 24px;
+        background-position: 0 0, 12px 12px;
+        background-blend-mode: soft-light;
+      }
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1F2A6B;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="min-h-screen text-anil-linea selection:bg-cempasuchil selection:text-anil-hondo">
+<!-- ==================== MENÚ LATERAL (264px) ==================== -->
+<aside class="fixed left-0 top-0 h-full w-[264px] bg-anil-hondo z-50 flex flex-col justify-between border-r-[3px] border-anil-linea shadow-[4px_0px_0px_#1F2A6B]">
+<div class="flex flex-col">
+<!-- Logo y Título -->
+<div class="p-5 flex items-center gap-3 border-b-2 border-anil-linea/60 bg-anil-hondo">
+<div class="w-11 h-11 rounded-lg bg-papel-crema flex items-center justify-center border-2 border-papel-crema shadow-[3px_3px_0px_#FFB30F]">
+<span class="material-symbols-outlined text-anil-hondo text-[26px]">pets</span>
+</div>
+<div class="flex flex-col">
+<span class="font-alfa text-[20px] text-papel-crema tracking-tight leading-tight">HUELLITAS</span>
+<span class="inline-block mt-0.5 px-2 py-0.5 rounded bg-cempasuchil text-anil-hondo font-archivo font-extrabold text-[10px] tracking-wider uppercase border border-anil-hondo shadow-[1px_1px_0px_#1F2A6B]">
+            ADMINISTRACIÓN
+          </span>
+</div>
+</div>
+<!-- Navegación -->
+<nav class="flex flex-col gap-1.5 p-3.5 mt-2">
+<!-- Resumen -->
+<a class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-papel-crema/85 hover:bg-anil-linea/70 hover:text-papel-crema transition-colors border border-transparent font-archivo font-semibold text-[14px]" href="#">
+<span class="material-symbols-outlined text-[20px]">grid_view</span>
+<span>Resumen</span>
+</a>
+<!-- Refugios (ACTIVA con pastilla Cempasúchil #FFB30F, texto añil #1F2A6B y frijol café #6B3F1D) -->
+<a class="flex items-center justify-between px-3.5 py-2.5 rounded-lg bg-cempasuchil text-anil-linea font-archivo font-bold text-[14px] border-2 border-anil-hondo shadow-[3px_3px_0px_#141C4D]" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[22px] text-anil-linea">home_work</span>
+<span>Refugios</span>
+</div>
+<!-- Frijol marcador café -->
+<span class="w-4 h-2.5 rounded-full bg-frijol-marcador rotate-[-20deg] inline-block shadow-[1px_1px_0px_#141C4D]" title="Marcador de lotería"></span>
+</a>
+<!-- Usuarios y roles -->
+<a class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-papel-crema/85 hover:bg-anil-linea/70 hover:text-papel-crema transition-colors border border-transparent font-archivo font-semibold text-[14px]" href="#">
+<span class="material-symbols-outlined text-[20px]">manage_accounts</span>
+<span>Usuarios y roles</span>
+</a>
+<!-- Moderación -->
+<a class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-papel-crema/85 hover:bg-anil-linea/70 hover:text-papel-crema transition-colors border border-transparent font-archivo font-semibold text-[14px]" href="#">
+<span class="material-symbols-outlined text-[20px]">gavel</span>
+<span>Moderación</span>
+</a>
+<!-- Catálogos -->
+<a class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-papel-crema/85 hover:bg-anil-linea/70 hover:text-papel-crema transition-colors border border-transparent font-archivo font-semibold text-[14px]" href="#">
+<span class="material-symbols-outlined text-[20px]">folder_special</span>
+<span>Catálogos</span>
+</a>
+<!-- Bitácora -->
+<a class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-papel-crema/85 hover:bg-anil-linea/70 hover:text-papel-crema transition-colors border border-transparent font-archivo font-semibold text-[14px]" href="#">
+<span class="material-symbols-outlined text-[20px]">history</span>
+<span>Bitácora</span>
+</a>
+</nav>
+</div>
+<!-- Pie del Sidebar -->
+<div class="p-3.5 m-3 rounded-lg bg-anil-linea/40 border-2 border-anil-linea text-papel-crema flex flex-col gap-1 shadow-[2px_2px_0px_#1F2A6B]">
+<div class="flex items-center gap-1.5 text-cempasuchil">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+<span class="font-archivo font-bold text-[12px] text-papel-crema">2FA Activo</span>
+</div>
+<span class="font-archivo text-[11px] text-papel-crema/70">Huellitas Admin v1.2</span>
+<span class="font-archivo text-[11px] text-papel-crema/50">Tulancingo, Hgo.</span>
+</div>
+</aside>
+<!-- ==================== CONTENEDOR CON MARGEN LATERAL (264px) ==================== -->
+<div class="pl-[264px] min-h-screen flex flex-col">
+<!-- ENCABEZADO SUPERIOR -->
+<header class="fixed top-0 left-[264px] right-0 h-16 bg-papel-crema/95 backdrop-blur-sm z-40 border-b-[3px] border-anil-linea px-6 flex items-center justify-between gap-4">
+<!-- Buscador Global -->
+<div class="flex-1 max-w-xl">
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-anil-linea text-[20px]">search</span>
+<input class="w-full h-10 pl-10 pr-4 bg-cartulina rounded-lg border-2 border-anil-linea text-anil-linea font-archivo text-[13px] placeholder:text-anil-linea/60 focus:outline-none focus:ring-1 focus:ring-rosa-mexicano shadow-dura-anil-sm" placeholder="Buscar refugio, usuario, folio o documento..." type="text"/>
+</div>
+</div>
+<!-- Lado Derecho: Avatar de Daniela Cruz (SIN botón "Cantar carta") -->
+<div class="flex items-center gap-3">
+<div class="flex flex-col text-right">
+<span class="font-archivo font-bold text-[14px] text-anil-hondo leading-tight">Daniela Cruz</span>
+<span class="font-archivo font-bold text-[11px] text-rosa-mexicano tracking-wide">Administradora</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-papel-crema border-[2.5px] border-anil-linea flex items-center justify-center shadow-dura-anil-sm overflow-hidden">
+<div class="w-full h-full bg-anil-claro flex items-center justify-center text-anil-hondo">
+<span class="material-symbols-outlined text-[24px]">person</span>
+</div>
+</div>
+</div>
+</header>
+<!-- ÁREA DE CONTENIDO PRINCIPAL -->
+<main class="relative pt-20 p-6 flex-1 flex flex-col gap-6">
+<!-- ENCABEZADO DE SECCIÓN -->
+<header class="flex flex-col gap-4">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="font-archivo font-extrabold text-[11px] uppercase tracking-wider text-rosa-mexicano">Padrón Oficial · Tulancingo 2026</span>
+<span class="w-1.5 h-1.5 rounded-full bg-anil-linea"></span>
+<span class="font-archivo font-semibold text-[12px] text-anil-linea/80">Folio Registro HGO-REF-09</span>
+</div>
+<!-- Título en Alfa Slab One -->
+<h1 class="font-alfa text-[32px] text-anil-linea tracking-tight leading-none mt-1">Refugios</h1>
+<p class="font-archivo text-[14px] text-anil-linea/85">
+              Supervisión, verificación legal y gestión de albergues registrados en Tulancingo y región
+            </p>
+</div>
+<!-- Métricas de Inspección -->
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-2.5 bg-cartulina px-4 py-2 rounded-lg border-2 border-anil-linea shadow-dura-anil-sm">
+<span class="material-symbols-outlined text-rosa-mexicano text-[22px]">verified</span>
+<div class="flex flex-col">
+<span class="font-archivo text-[11px] text-anil-linea/70 font-semibold uppercase">Verificados</span>
+<span class="font-archivo font-extrabold text-[17px] text-anil-hondo leading-none">6 activos</span>
+</div>
+</div>
+<div class="flex items-center gap-2.5 bg-cempasuchil-claro px-4 py-2 rounded-lg border-2 border-anil-linea shadow-dura-anil-sm">
+<span class="material-symbols-outlined text-cempasuchil-oscuro text-[22px]">pending_actions</span>
+<div class="flex flex-col">
+<span class="font-archivo text-[11px] text-anil-linea font-bold uppercase">Por validar</span>
+<span class="font-archivo font-extrabold text-[17px] text-anil-linea leading-none">2 trámites</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Pestañas de Filtro y Herramientas con Borde Añil 2px y Sombra Dura -->
+<div class="flex flex-wrap items-center justify-between gap-4 pt-1">
+<!-- Pestañas de Estado -->
+<div class="flex items-center gap-2">
+<!-- Pestaña Activa con Frijol -->
+<button class="relative flex items-center gap-2 px-4 py-2 rounded-full bg-cempasuchil text-anil-linea border-2 border-anil-linea shadow-dura-anil-sm font-archivo font-bold text-[13px] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all" type="button">
+<span class="w-3.5 h-2 rounded-full bg-frijol-marcador rotate-[-20deg] inline-block shadow-[1px_1px_0px_#1F2A6B]"></span>
+<span>En verificación (2)</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-full bg-cartulina text-anil-linea border-2 border-anil-linea shadow-dura-anil-sm font-archivo font-semibold text-[13px] hover:bg-papel-crema active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all" type="button">
+<span>Verificados (6)</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-full bg-cartulina text-anil-linea border-2 border-anil-linea shadow-dura-anil-sm font-archivo font-semibold text-[13px] hover:bg-papel-crema active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all" type="button">
+<span>Rechazados (0)</span>
+</button>
+</div>
+<!-- Barra de Búsqueda y Filtros de Zona -->
+<div class="flex items-center gap-3 flex-1 max-w-xl justify-end">
+<div class="relative flex-1 max-w-xs">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-anil-linea/60 text-[18px]">search</span>
+<input class="w-full h-9 pl-9 pr-3 bg-cartulina rounded-lg border-2 border-anil-linea text-anil-linea font-archivo text-[13px] placeholder:text-anil-linea/60 focus:outline-none focus:bg-papel-crema shadow-dura-anil-sm" placeholder="Buscar refugio o responsable..." type="text"/>
+</div>
+<div class="relative">
+<select class="h-9 px-3 pr-8 bg-cartulina rounded-lg border-2 border-anil-linea text-anil-linea font-archivo font-semibold text-[13px] shadow-dura-anil-sm appearance-none focus:outline-none cursor-pointer">
+<option>Tulancingo y Valle</option>
+<option>Santiago Tulantepec</option>
+<option>Cuautepec de Hinojosa</option>
+<option>Singuilucan</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-2 text-anil-linea pointer-events-none text-[18px]">expand_more</span>
+</div>
+<button class="h-9 px-3.5 bg-cartulina hover:bg-anil-claro text-anil-linea font-archivo font-bold text-[13px] rounded-lg border-2 border-anil-linea shadow-dura-anil-sm active:translate-x-0.5 active:translate-y-0.5 active:shadow-none flex items-center gap-1.5 transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>Exportar padrón</span>
+</button>
+</div>
+</div>
+</header>
+<!-- CONTENEDOR PRINCIPAL ASIMÉTRICO (TABLA + PANEL DE DETALLE 440PX) -->
+<div class="flex flex-col xl:flex-row gap-6 items-start">
+<!-- COLUMNA IZQUIERDA: PADRÓN Y TABLA ESTILO IMPRENTA (FLEX-1) -->
+<div class="flex-1 w-full flex flex-col gap-5">
+<div class="bg-cartulina rounded-xl border-[3px] border-anil-linea shadow-dura-anil-lg overflow-hidden">
+<!-- Franja Superior de Registro Serigráfico -->
+<div class="bg-anil-hondo text-papel-crema px-4 py-2 flex items-center justify-between border-b-2 border-anil-linea">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-rosa-mexicano border border-papel-crema"></span>
+<span class="w-3 h-3 rounded-full bg-cempasuchil border border-papel-crema"></span>
+<span class="w-3 h-3 rounded-full bg-papel-crema border border-anil-hondo"></span>
+<span class="font-archivo text-[11px] font-bold tracking-wider uppercase ml-1">Padrón Municipal de Refugios · Serie B</span>
+</div>
+<span class="font-archivo text-[11px] text-cempasuchil font-bold">Registro 2026.10</span>
+</div>
+<!-- Tabla de Refugios con Estilo de Imprenta -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-anil-claro text-anil-linea border-b-2 border-anil-linea font-archivo font-bold text-[13px]">
+<th class="py-3 px-4">REFUGIO</th>
+<th class="py-3 px-3">RESPONSABLE</th>
+<th class="py-3 px-3">FECHA SOLICITUD</th>
+<th class="py-3 px-3">DOCUMENTOS</th>
+<th class="py-3 px-3 text-center">ESTADO</th>
+<th class="py-3 px-4 text-right">ACCIONES</th>
+</tr>
+</thead>
+<tbody class="divide-y-2 divide-anil-linea/20 font-archivo text-[13px]">
+<!-- Fila 1: Patitas de Santiago (Seleccionada) -->
+<tr class="bg-rosa-suave/40 border-y-2 border-anil-linea cursor-pointer hover:bg-rosa-suave/60 transition-colors" onclick="selectRow(this, 'patitas')">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-2.5">
+<span class="row-bean w-3.5 h-2.5 rounded-full bg-frijol-marcador rotate-[-20deg] inline-block shadow-[1px_1px_0px_#1F2A6B] flex-shrink-0"></span>
+<div class="w-9 h-9 rounded-lg bg-papel-crema border-2 border-anil-linea shadow-dura-anil-sm flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-anil-linea text-[20px]">cottage</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-archivo font-bold text-anil-linea text-[14px]">Patitas de Santiago</span>
+<span class="text-[12px] text-anil-linea/70">Santiago Tulantepec, Hgo.</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-3 font-semibold text-anil-linea">
+                      Lucía Morales Peña
+                    </td>
+<td class="py-3.5 px-3">
+<span class="font-bold text-anil-linea">18 oct 2026</span>
+<span class="block text-[11px] text-anil-linea/70">hace 2 días</span>
+</td>
+<td class="py-3.5 px-3">
+<div class="flex items-center gap-1.5 text-rosa-mexicano font-bold">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+<span class="text-[12px]">Acta + Comprobante (2.4 MB)</span>
+</div>
+</td>
+<td class="py-3.5 px-3 text-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-cempasuchil-claro text-anil-linea font-bold text-[12px] border-2 border-anil-linea shadow-dura-anil-sm">
+<span class="material-symbols-outlined text-[13px]">hourglass_top</span>
+                        En verificación
+                      </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<button class="h-8 px-3 bg-cempasuchil text-anil-linea font-bold text-[12px] rounded border-2 border-anil-linea shadow-dura-anil-sm active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-transform" type="button">
+                        Revisar expediente
+                      </button>
+</td>
+</tr>
+<!-- Fila 2: Michis del Valle -->
+<tr class="bg-papel-crema cursor-pointer hover:bg-cartulina transition-colors" onclick="selectRow(this, 'michis')">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-2.5 pl-6">
+<div class="w-9 h-9 rounded-lg bg-anil-claro border-2 border-anil-linea shadow-dura-anil-sm flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-anil-linea text-[20px]">pets</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-archivo font-bold text-anil-linea text-[14px]">Michis del Valle</span>
+<span class="text-[12px] text-anil-linea/70">Cuautepec de Hinojosa</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-3 font-semibold text-anil-linea">
+                      Gerardo Soto Islas
+                    </td>
+<td class="py-3.5 px-3">
+<span class="font-bold text-anil-linea">19 oct 2026</span>
+<span class="block text-[11px] text-anil-linea/70">ayer</span>
+</td>
+<td class="py-3.5 px-3">
+<div class="flex items-center gap-1.5 text-anil-linea font-medium">
+<span class="material-symbols-outlined text-[18px] text-anil-linea/60">description</span>
+<span class="text-[12px]">Comprobante + Carta (1.8 MB)</span>
+</div>
+</td>
+<td class="py-3.5 px-3 text-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-cempasuchil-claro text-anil-linea font-bold text-[12px] border-2 border-anil-linea shadow-dura-anil-sm">
+<span class="material-symbols-outlined text-[13px]">hourglass_top</span>
+                        En verificación
+                      </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<button class="h-8 px-3 bg-cartulina hover:bg-anil-claro text-anil-linea font-bold text-[12px] rounded border-2 border-anil-linea shadow-dura-anil-sm active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-transform" type="button">
+                        Ver
+                      </button>
+</td>
+</tr>
+<!-- Fila 3: Refugio San Roque Tulancingo -->
+<tr class="bg-cartulina cursor-pointer hover:bg-papel-crema transition-colors" onclick="selectRow(this, 'sanroque')">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-2.5 pl-6">
+<div class="w-9 h-9 rounded-lg bg-papel-crema border-2 border-anil-linea shadow-dura-anil-sm flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-anil-linea text-[20px]">home_health</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-archivo font-bold text-anil-linea text-[14px]">Refugio San Roque Tulancingo</span>
+<span class="text-[12px] text-anil-linea/70">Col. Centro, Tulancingo</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-3 font-semibold text-anil-linea">
+                      Mariana Solís Olvera
+                    </td>
+<td class="py-3.5 px-3">
+<span class="font-semibold text-anil-linea">12 mar 2025</span>
+<span class="block text-[11px] text-anil-linea/70">Vigente</span>
+</td>
+<td class="py-3.5 px-3">
+<div class="flex items-center gap-1.5 text-verde-nopal font-bold">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span class="text-[12px]">Expediente completo verificado</span>
+</div>
+</td>
+<td class="py-3.5 px-3 text-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-verde-suave text-verde-nopal font-bold text-[12px] border-2 border-anil-linea shadow-dura-anil-sm">
+                        Verificado ✓
+                      </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<button class="h-8 px-3 bg-cartulina hover:bg-anil-claro text-anil-linea font-bold text-[12px] rounded border-2 border-anil-linea shadow-dura-anil-sm active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-transform" type="button">
+                        Ver
+                      </button>
+</td>
+</tr>
+<!-- Fila 4: Refugio La Esperanza -->
+<tr class="bg-papel-crema cursor-pointer hover:bg-cartulina transition-colors" onclick="selectRow(this, 'esperanza')">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-2.5 pl-6">
+<div class="w-9 h-9 rounded-lg bg-cartulina border-2 border-anil-linea shadow-dura-anil-sm flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-anil-linea text-[20px]">volunteer_activism</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-archivo font-bold text-anil-linea text-[14px]">Refugio La Esperanza</span>
+<span class="text-[12px] text-anil-linea/70">Jaltepec, Tulancingo</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-3 font-semibold text-anil-linea">
+                      Carmen Rivas T.
+                    </td>
+<td class="py-3.5 px-3">
+<span class="font-semibold text-anil-linea">04 may 2025</span>
+<span class="block text-[11px] text-anil-linea/70">Vigente</span>
+</td>
+<td class="py-3.5 px-3">
+<div class="flex items-center gap-1.5 text-anil-linea">
+<span class="material-symbols-outlined text-[18px] text-verde-nopal">task_alt</span>
+<span class="text-[12px]">Acreditación municipal</span>
+</div>
+</td>
+<td class="py-3.5 px-3 text-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-verde-suave text-verde-nopal font-bold text-[12px] border-2 border-anil-linea shadow-dura-anil-sm">
+                        Verificado ✓
+                      </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<button class="h-8 px-3 bg-cartulina hover:bg-anil-claro text-anil-linea font-bold text-[12px] rounded border-2 border-anil-linea shadow-dura-anil-sm active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-transform" type="button">
+                        Ver
+                      </button>
+</td>
+</tr>
+<!-- Fila 5: Ángeles de 4 Patas -->
+<tr class="bg-cartulina cursor-pointer hover:bg-papel-crema transition-colors" onclick="selectRow(this, 'angeles')">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-2.5 pl-6">
+<div class="w-9 h-9 rounded-lg bg-papel-crema border-2 border-anil-linea shadow-dura-anil-sm flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-anil-linea text-[20px]">medical_services</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-archivo font-bold text-anil-linea text-[14px]">Ángeles de 4 Patas</span>
+<span class="text-[12px] text-anil-linea/70">Col. Vicente Guerrero</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-3 font-semibold text-anil-linea">
+                      Dra. Sofía Alarcón
+                    </td>
+<td class="py-3.5 px-3">
+<span class="font-semibold text-anil-linea">15 ago 2025</span>
+<span class="block text-[11px] text-anil-linea/70">Vigente</span>
+</td>
+<td class="py-3.5 px-3">
+<div class="flex items-center gap-1.5 text-anil-linea">
+<span class="material-symbols-outlined text-[18px] text-verde-nopal">task_alt</span>
+<span class="text-[12px]">Registro civil verificado</span>
+</div>
+</td>
+<td class="py-3.5 px-3 text-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-verde-suave text-verde-nopal font-bold text-[12px] border-2 border-anil-linea shadow-dura-anil-sm">
+                        Verificado ✓
+                      </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<button class="h-8 px-3 bg-cartulina hover:bg-anil-claro text-anil-linea font-bold text-[12px] rounded border-2 border-anil-linea shadow-dura-anil-sm active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-transform" type="button">
+                        Ver
+                      </button>
+</td>
+</tr>
+<!-- Fila 6: La Joya Temporal -->
+<tr class="bg-papel-crema cursor-pointer hover:bg-cartulina transition-colors" onclick="selectRow(this, 'joya')">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-2.5 pl-6">
+<div class="w-9 h-9 rounded-lg bg-cartulina border-2 border-anil-linea shadow-dura-anil-sm flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-anil-linea text-[20px]">diversity_1</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-archivo font-bold text-anil-linea text-[14px]">La Joya Temporal</span>
+<span class="text-[12px] text-anil-linea/70">Fracc. La Joya, Tulancingo</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-3 font-semibold text-anil-linea">
+                      Mateo Vargas Cruz
+                    </td>
+<td class="py-3.5 px-3">
+<span class="font-semibold text-anil-linea">02 ene 2026</span>
+<span class="block text-[11px] text-anil-linea/70">Vigente</span>
+</td>
+<td class="py-3.5 px-3">
+<div class="flex items-center gap-1.5 text-anil-linea">
+<span class="material-symbols-outlined text-[18px] text-verde-nopal">task_alt</span>
+<span class="text-[12px]">Convenio vecinal</span>
+</div>
+</td>
+<td class="py-3.5 px-3 text-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-verde-suave text-verde-nopal font-bold text-[12px] border-2 border-anil-linea shadow-dura-anil-sm">
+                        Verificado ✓
+                      </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<button class="h-8 px-3 bg-cartulina hover:bg-anil-claro text-anil-linea font-bold text-[12px] rounded border-2 border-anil-linea shadow-dura-anil-sm active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-transform" type="button">
+                        Ver
+                      </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pie de Tabla con Estilo de Imprenta / Paginación -->
+<div class="bg-papel-crema border-t-2 border-anil-linea px-4 py-3 flex flex-col sm:flex-row items-center justify-between gap-3">
+<div class="flex items-center gap-1.5 text-anil-linea">
+<span class="material-symbols-outlined text-anil-linea/70 text-[18px]">info</span>
+<span class="font-archivo text-[12px] font-semibold">Mostrando 6 de 8 refugios registrados en Tulancingo y región</span>
+</div>
+<div class="flex items-center gap-1.5">
+<button class="w-8 h-8 rounded border-2 border-anil-linea/40 bg-cartulina/50 text-anil-linea/40 flex items-center justify-center cursor-not-allowed" disabled="" type="button">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<span class="w-8 h-8 rounded border-2 border-anil-linea bg-cempasuchil text-anil-linea font-archivo font-bold text-[13px] flex items-center justify-center shadow-dura-anil-sm">
+                  1
+                </span>
+<button class="w-8 h-8 rounded border-2 border-anil-linea bg-cartulina text-anil-linea font-archivo font-bold text-[13px] flex items-center justify-center hover:bg-anil-claro shadow-dura-anil-sm transition-colors" type="button">
+                  2
+                </button>
+<button class="w-8 h-8 rounded border-2 border-anil-linea bg-cartulina text-anil-linea flex items-center justify-center hover:bg-anil-claro shadow-dura-anil-sm transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Tira Informativa de Acreditación (Estilo Serigrafía) -->
+<div class="bg-anil-claro rounded-xl border-2 border-anil-linea p-4 flex items-start gap-4 shadow-dura-anil">
+<div class="w-10 h-10 rounded-full bg-rosa-mexicano text-papel-crema flex items-center justify-center flex-shrink-0 border-2 border-anil-linea shadow-dura-anil-sm">
+<span class="material-symbols-outlined text-[22px]">policy</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-archivo font-bold text-[14px] text-anil-hondo">Protocolo de Verificación Legal Tulancingo 2026</span>
+<p class="font-archivo text-[13px] text-anil-linea/90 leading-relaxed">
+                Los albergues certificados reciben sello verde oficial, acceso al módulo de "Cantar Lotería" con geolocalización y prioridad en la baraja de adopciones municipal. Cada alta requiere validación física en menos de 72 horas hábiles.
+              </p>
+</div>
+</div>
+</div>
+<!-- ==================== COLUMNA DERECHA: DETALLE DEL REFUGIO (440px) ==================== -->
+<div class="w-full xl:w-[440px] flex-shrink-0 flex flex-col gap-4">
+<div class="bg-cartulina rounded-xl border-[3px] border-anil-linea shadow-dura-anil-lg p-5 flex flex-col gap-4 relative overflow-hidden">
+<!-- Sello de Marca de Agua de Huella Serigráfica -->
+<div class="absolute -right-6 -bottom-6 select-none pointer-events-none opacity-5">
+<span class="material-symbols-outlined text-[200px] text-anil-hondo">pets</span>
+</div>
+<!-- Encabezado del Detalle -->
+<div class="flex flex-col gap-2 pb-3.5 border-b-2 border-anil-linea">
+<div class="flex items-center justify-between gap-2">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-cempasuchil-claro text-anil-linea font-archivo font-bold text-[12px] border-2 border-anil-linea shadow-dura-anil-sm">
+<span class="material-symbols-outlined text-[15px]">schedule</span>
+                  Solicitud de alta pendiente
+                </span>
+<span class="font-archivo font-bold text-[11px] text-anil-hondo bg-papel-crema px-2 py-0.5 rounded border-2 border-anil-linea">
+                  #REF-2026-08
+                </span>
+</div>
+<div class="mt-1">
+<h2 class="font-alfa text-[22px] text-anil-linea tracking-tight leading-tight">
+                  Patitas de Santiago
+                </h2>
+<p class="font-archivo text-[13px] text-anil-linea/80 font-medium">
+                  Albergue comunitario · Capacidad 25 animales
+                </p>
+</div>
+</div>
+<!-- Tarjeta de Datos del Representante Legal -->
+<div class="bg-papel-crema rounded-lg border-2 border-anil-linea p-3.5 flex flex-col gap-2.5 shadow-dura-anil-sm">
+<span class="font-archivo font-extrabold text-[11px] uppercase tracking-wider text-anil-linea/70">
+                Datos del Representante
+              </span>
+<div class="grid grid-cols-1 gap-2 font-archivo text-[13px]">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-anil-linea text-[18px] mt-0.5">person</span>
+<div class="flex flex-col">
+<span class="text-[11px] text-anil-linea/70">Responsable legal</span>
+<span class="font-bold text-anil-hondo text-[14px]">Lucía Morales Peña</span>
+</div>
+</div>
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-anil-linea text-[18px] mt-0.5">phone_iphone</span>
+<div class="flex flex-col">
+<span class="text-[11px] text-anil-linea/70">Teléfono móvil</span>
+<div class="flex items-center gap-2">
+<span class="font-bold text-anil-hondo">775 142 8901</span>
+<span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-verde-suave text-verde-nopal text-[10px] font-bold border border-verde-nopal">
+<span class="material-symbols-outlined text-[12px]">check</span> SMS Verificado
+                      </span>
+</div>
+</div>
+</div>
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-anil-linea text-[18px] mt-0.5">mail</span>
+<div class="flex flex-col">
+<span class="text-[11px] text-anil-linea/70">Correo electrónico</span>
+<span class="text-anil-hondo font-medium">contacto@patitasdesantiago.org</span>
+</div>
+</div>
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-anil-linea text-[18px] mt-0.5">location_on</span>
+<div class="flex flex-col">
+<span class="text-[11px] text-anil-linea/70">Ubicación del albergue</span>
+<span class="text-anil-hondo font-medium">Calle Los Pinos #14, Santiago Tulantepec, Hgo.</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Minimapa Ilustrado de Geolocalización -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="font-archivo font-extrabold text-[11px] uppercase tracking-wider text-anil-linea/70">
+                  Geolocalización del Predio
+                </span>
+<span class="font-archivo text-[11px] text-verde-nopal font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">near_me</span>
+                  A 4.2 km de Tulancingo Centro
+                </span>
+</div>
+<!-- Mapa Serigráfico con Borde Añil y Sombra Dura -->
+<div class="w-full h-32 rounded-lg border-2 border-anil-linea relative overflow-hidden bg-papel-crema shadow-dura-anil-sm">
+<svg class="absolute inset-0 w-full h-full text-anil-linea/20" height="100%" width="100%">
+<pattern height="24" id="mapa-reticula" patternunits="userSpaceOnUse" width="24">
+<path d="M 24 0 L 0 0 0 24" fill="none" stroke="currentColor" stroke-width="1.5"></path>
+</pattern>
+<rect fill="url(#mapa-reticula)" height="100%" width="100%"></rect>
+<!-- Calles principales -->
+<path d="M -10 40 Q 120 70 440 20" fill="none" stroke="#E4E7F6" stroke-width="14"></path>
+<path d="M 220 -10 Q 230 60 250 140" fill="none" stroke="#E4E7F6" stroke-width="12"></path>
+</svg>
+<!-- Canal local -->
+<div class="absolute left-0 bottom-3 w-full h-3 bg-anil-claro/80 border-y border-anil-linea/30"></div>
+<!-- Pin de Lotería con Sombra Dura -->
+<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-10 cursor-pointer">
+<div class="px-2 py-0.5 rounded bg-anil-hondo text-papel-crema text-[10px] font-bold border border-anil-linea shadow-[2px_2px_0px_#FFB30F] whitespace-nowrap mb-1">
+                    Patitas de Santiago
+                  </div>
+<div class="w-7 h-7 rounded-full bg-rosa-mexicano border-2 border-anil-linea flex items-center justify-center text-papel-crema shadow-dura-anil-sm">
+<span class="material-symbols-outlined text-[16px]">pets</span>
+</div>
+<div class="w-2.5 h-1.5 rounded-full bg-anil-linea/60 mt-0.5"></div>
+</div>
+<div class="absolute bottom-1.5 left-1.5 bg-cartulina/95 px-2 py-0.5 rounded border border-anil-linea text-[10px] font-bold text-anil-hondo">
+                  Zona periurbana · Predio verificado
+                </div>
+</div>
+</div>
+<!-- Expediente Digital con Previsualización de Documento -->
+<div class="flex flex-col gap-2">
+<span class="font-archivo font-extrabold text-[11px] uppercase tracking-wider text-anil-linea/70">
+                Expediente Digital
+              </span>
+<div class="rounded-lg border-2 border-anil-linea bg-anil-claro p-3 flex flex-col gap-2.5 shadow-dura-anil-sm">
+<div class="flex items-center justify-between gap-2">
+<div class="flex items-center gap-2 min-w-0">
+<div class="w-8 h-8 rounded bg-rosa-mexicano text-papel-crema flex items-center justify-center flex-shrink-0 border border-anil-linea shadow-[1px_1px_0px_#1F2A6B]">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-archivo font-bold text-anil-hondo text-[12px] truncate">Acta_Constitutiva_Patitas_Santiago_AC.pdf</span>
+<span class="font-archivo text-[11px] text-anil-linea/75">2.4 MB · 8 páginas foliadas</span>
+</div>
+</div>
+<a class="h-7 px-2.5 bg-cartulina hover:bg-papel-crema text-anil-linea text-[11px] font-bold rounded border-2 border-anil-linea shadow-dura-anil-sm flex items-center gap-1 flex-shrink-0 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all" href="#">
+<span class="material-symbols-outlined text-[14px]">visibility</span>
+<span>Previsualizar</span>
+</a>
+</div>
+<!-- Checklist de Validación Técnica -->
+<div class="pt-2 border-t border-anil-linea/20 flex flex-col gap-1.5 font-archivo text-[12px]">
+<label class="flex items-center gap-2 text-anil-hondo select-none">
+<span class="w-4 h-4 rounded bg-verde-nopal text-papel-crema flex items-center justify-center text-[11px] font-bold border border-anil-linea">✓</span>
+<span class="font-medium">Acreditación legal de asociación civil</span>
+</label>
+<label class="flex items-center gap-2 text-anil-hondo select-none">
+<span class="w-4 h-4 rounded bg-verde-nopal text-papel-crema flex items-center justify-center text-[11px] font-bold border border-anil-linea">✓</span>
+<span class="font-medium">Identificación oficial del responsable (INE)</span>
+</label>
+<label class="flex items-center gap-2 text-anil-hondo select-none">
+<span class="w-4 h-4 rounded bg-verde-nopal text-papel-crema flex items-center justify-center text-[11px] font-bold border border-anil-linea">✓</span>
+<span class="font-medium">Comprobante de domicilio de las instalaciones</span>
+</label>
+<label class="flex items-center gap-2 text-anil-hondo select-none">
+<span class="w-4 h-4 rounded bg-verde-nopal text-papel-crema flex items-center justify-center text-[11px] font-bold border border-anil-linea">✓</span>
+<span class="font-medium">Aval de MVZ (Cédula Prof. 849201)</span>
+</label>
+</div>
+</div>
+</div>
+<!-- Motivo de la Solicitud (Cita Textual) -->
+<div class="p-3 bg-papel-crema rounded-lg border-2 border-anil-linea flex flex-col gap-1 shadow-dura-anil-sm">
+<span class="font-archivo font-extrabold text-[11px] uppercase tracking-wider text-anil-linea/70 flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">format_quote</span>
+                Motivo expresado en la solicitud
+              </span>
+<p class="font-archivo text-[13px] text-anil-linea italic leading-relaxed">
+                «Buscamos sumarnos a la baraja oficial de Tulancingo para dar en adopción responsable a 14 perritos y 6 gatitos rescatados en la periferia de Santiago.»
+              </p>
+</div>
+<!-- ================= BOTONES DE ACCIÓN PRINCIPALES ================= -->
+<div class="flex flex-col gap-2.5 pt-2 border-t-2 border-anil-linea">
+<!-- 1. Botón Principal: Rosa Mexicano (#D6006F) con texto blanco y sombra dura Cempasúchil (#FFB30F) -->
+<button class="w-full h-12 bg-rosa-mexicano text-papel-crema font-archivo font-bold text-[15px] rounded-xl border-2 border-anil-linea shadow-dura-cempasuchil hover:bg-rosa-pressed active:translate-x-1 active:translate-y-1 active:shadow-none flex items-center justify-center gap-2 transition-all cursor-pointer" type="button">
+<span class="material-symbols-outlined text-[22px]">verified</span>
+<span>Verificar refugio ✓</span>
+</button>
+<!-- 2. Botón Peligro: (#FDE8E6 con texto y borde #B42318) -->
+<div class="flex flex-col gap-1">
+<button class="w-full h-11 bg-peligro-bg text-peligro-borde font-archivo font-bold text-[14px] rounded-lg border-2 border-peligro-borde shadow-dura-peligro hover:bg-peligro-bg/80 active:translate-x-1 active:translate-y-1 active:shadow-none flex items-center justify-center gap-2 transition-all cursor-pointer" type="button">
+<span class="material-symbols-outlined text-[20px]">cancel</span>
+<span>Rechazar solicitud</span>
+</button>
+<span class="text-center font-archivo text-[11px] text-anil-linea/70">
+                  * Se solicitará motivo obligatorio para orientar al refugio.
+                </span>
+</div>
+</div>
+</div>
+<!-- Resumen de Plazas Regionales -->
+<div class="bg-cartulina rounded-xl border-2 border-anil-linea p-3.5 shadow-dura-anil flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-cempasuchil border-2 border-anil-linea flex items-center justify-center text-anil-linea font-bold shadow-dura-anil-sm">
+                25
+              </div>
+<div class="flex flex-col font-archivo">
+<span class="font-bold text-anil-hondo text-[13px]">Plazas estimadas</span>
+<span class="text-[11px] text-anil-linea/70">Añadirá +25 espacios a Tulancingo</span>
+</div>
+</div>
+<span class="font-archivo text-[11px] font-bold text-verde-nopal bg-verde-suave px-2.5 py-1 rounded border border-verde-nopal">
+              Capacidad apta
+            </span>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Script interactivo de selección de fila con frijol marcador -->
+<script>
+    function selectRow(rowElement, shelterId) {
+      const tbody = rowElement.closest('tbody');
+      const rows = tbody.querySelectorAll('tr');
+      
+      rows.forEach((r, idx) => {
+        // Remover estilos de fila activa
+        r.classList.remove('bg-rosa-suave/40', 'border-y-2', 'border-anil-linea');
+        if (idx % 2 === 0) {
+          r.classList.add('bg-cartulina');
+          r.classList.remove('bg-papel-crema');
+        } else {
+          r.classList.add('bg-papel-crema');
+          r.classList.remove('bg-cartulina');
+        }
+        
+        // Quitar frijol marcador y reponer sangría
+        const bean = r.querySelector('.row-bean');
+        if (bean) {
+          bean.remove();
+        }
+        const titleContainer = r.querySelector('td:first-child > div');
+        if (titleContainer && !titleContainer.classList.contains('pl-6')) {
+          titleContainer.classList.add('pl-6');
+        }
+      });
+
+      // Activar la fila cliqueada
+      rowElement.classList.remove('bg-cartulina', 'bg-papel-crema');
+      rowElement.classList.add('bg-rosa-suave/40', 'border-y-2', 'border-anil-linea');
+      
+      const targetDiv = rowElement.querySelector('td:first-child > div');
+      if (targetDiv) {
+        targetDiv.classList.remove('pl-6');
+        if (!targetDiv.querySelector('.row-bean')) {
+          const beanSpan = document.createElement('span');
+          beanSpan.className = 'row-bean w-3.5 h-2.5 rounded-full bg-frijol-marcador rotate-[-20deg] inline-block shadow-[1px_1px_0px_#1F2A6B] flex-shrink-0';
+          beanSpan.title = 'Marcador de lotería';
+          targetDiv.insertBefore(beanSpan, targetDiv.firstChild);
+        }
+      }
+    }
+  </script>
+<script src="js/prototipo.js" data-pagina="admin-refugios"></script>
+</body></html>

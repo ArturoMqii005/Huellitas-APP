@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="web_dashboard" name="shell-type"/>
+<title>Huellitas · Usuarios y roles (Administrador)</title>
+<!-- Tipografías Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&amp;family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "papel-crema": "#FFFBF2",
+            "anil-hondo": "#141C4D",
+            "anil-linea": "#1F2A6B",
+            "anil-claro": "#E4E7F6",
+            "cempasuchil": "#FFB30F",
+            "cempasuchil-claro": "#FFF2CF",
+            "cempasuchil-oscuro": "#734e00",
+            "frijol-marcador": "#6B3F1D",
+            "rosa-mexicano": "#D6006F",
+            "rosa-pressed": "#A8005A",
+            "rosa-suave": "#FDE6F0",
+            "verde-nopal": "#17734A",
+            "verde-suave": "#DDF3E6",
+            "peligro-bg": "#FDE8E6",
+            "peligro-borde": "#B42318",
+            "cartulina": "#FFFFFF"
+          },
+          fontFamily: {
+            "alfa": ["'Alfa Slab One'", "serif"],
+            "archivo": ["'Archivo'", "sans-serif"]
+          },
+          boxShadow: {
+            "dura-anil": "4px 4px 0px #1F2A6B",
+            "dura-anil-sm": "2px 2px 0px #1F2A6B",
+            "dura-anil-lg": "5px 5px 0px #1F2A6B",
+            "dura-cempasuchil": "4px 4px 0px #FFB30F",
+            "dura-peligro": "3px 3px 0px #B42318"
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+        background-color: #FFFBF2;
+        font-family: 'Archivo', sans-serif;
+        color: #1F2A6B;
+      }
+      body {
+        background-color: #FFFBF2;
+        /* Textura serigráfica de grano sutil */
+        background-image: radial-gradient(#141C4D 0.5px, transparent 0.5px), radial-gradient(#FFB30F 0.5px, #FFFBF2 0.5px);
+        background-size: 24px 24px;
+        background-position: 0 0, 12px 12px;
+        background-blend-mode: soft-light;
+      }
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1F2A6B;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="min-h-screen text-anil-linea selection:bg-cempasuchil selection:text-anil-hondo">
+<!-- ==================== MENÚ LATERAL (264px) ==================== -->
+<aside class="fixed left-0 top-0 h-full w-[264px] bg-anil-hondo z-50 flex flex-col justify-between border-r-[3px] border-anil-linea shadow-[4px_0px_0px_#1F2A6B]">
+<div class="flex flex-col">
+<!-- Logo y Título -->
+<div class="p-5 flex items-center gap-3 border-b-2 border-anil-linea/60 bg-anil-hondo">
+<div class="w-11 h-11 rounded-lg bg-papel-crema flex items-center justify-center border-2 border-papel-crema shadow-[3px_3px_0px_#FFB30F]">
+<span class="material-symbols-outlined text-anil-hondo text-[26px]">pets</span>
+</div>
+<div class="flex flex-col">
+<span class="font-alfa text-[20px] text-papel-crema tracking-tight leading-tight">HUELLITAS</span>
+<span class="inline-block mt-0.5 px-2 py-0.5 rounded bg-cempasuchil text-anil-hondo font-archivo font-extrabold text-[10px] tracking-wider uppercase border border-anil-hondo shadow-[1px_1px_0px_#1F2A6B]">
+            ADMINISTRACIÓN
+          </span>
+</div>
+</div>
+<!-- Navegación -->
+<nav class="flex flex-col gap-1.5 p-3.5 mt-2">
+<!-- Resumen -->
+<a class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-papel-crema/85 hover:bg-anil-linea/70 hover:text-papel-crema transition-colors border border-transparent font-archivo font-semibold text-[14px]" href="#">
+<span class="material-symbols-outlined text-[20px]">grid_view</span>
+<span>Resumen</span>
+</a>
+<!-- Refugios (ACTIVA con pastilla Cempasúchil #FFB30F, texto añil #1F2A6B y frijol café #6B3F1D) -->
+<a class="flex items-center justify-between px-3.5 py-2.5 rounded-lg bg-cempasuchil text-anil-linea font-archivo font-bold text-[14px] border-2 border-anil-hondo shadow-[3px_3px_0px_#141C4D]" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[22px] text-anil-linea">home_work</span>
+<span>Refugios</span>
+</div>
+<!-- Frijol marcador café -->
+<span class="w-4 h-2.5 rounded-full bg-frijol-marcador rotate-[-20deg] inline-block shadow-[1px_1px_0px_#141C4D]" title="Marcador de lotería"></span>
+</a>
+<!-- Usuarios y roles -->
+<a class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-papel-crema/85 hover:bg-anil-linea/70 hover:text-papel-crema transition-colors border border-transparent font-archivo font-semibold text-[14px]" href="#">
+<span class="material-symbols-outlined text-[20px]">manage_accounts</span>
+<span>Usuarios y roles</span>
+</a>
+<!-- Moderación -->
+<a class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-papel-crema/85 hover:bg-anil-linea/70 hover:text-papel-crema transition-colors border border-transparent font-archivo font-semibold text-[14px]" href="#">
+<span class="material-symbols-outlined text-[20px]">gavel</span>
+<span>Moderación</span>
+</a>
+<!-- Catálogos -->
+<a class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-papel-crema/85 hover:bg-anil-linea/70 hover:text-papel-crema transition-colors border border-transparent font-archivo font-semibold text-[14px]" href="#">
+<span class="material-symbols-outlined text-[20px]">folder_special</span>
+<span>Catálogos</span>
+</a>
+<!-- Bitácora -->
+<a class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-papel-crema/85 hover:bg-anil-linea/70 hover:text-papel-crema transition-colors border border-transparent font-archivo font-semibold text-[14px]" href="#">
+<span class="material-symbols-outlined text-[20px]">history</span>
+<span>Bitácora</span>
+</a>
+</nav>
+</div>
+<!-- Pie del Sidebar -->
+<div class="p-3.5 m-3 rounded-lg bg-anil-linea/40 border-2 border-anil-linea text-papel-crema flex flex-col gap-1 shadow-[2px_2px_0px_#1F2A6B]">
+<div class="flex items-center gap-1.5 text-cempasuchil">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+<span class="font-archivo font-bold text-[12px] text-papel-crema">2FA Activo</span>
+</div>
+<span class="font-archivo text-[11px] text-papel-crema/70">Huellitas Admin v1.2</span>
+<span class="font-archivo text-[11px] text-papel-crema/50">Tulancingo, Hgo.</span>
+</div>
+</aside>
+<!-- ==================== CONTENEDOR CON MARGEN LATERAL (264px) ==================== -->
+<div class="pl-[264px] min-h-screen flex flex-col">
+<!-- ENCABEZADO SUPERIOR -->
+<header class="fixed top-0 left-[264px] right-0 h-16 bg-papel-crema/95 backdrop-blur-sm z-40 border-b-[3px] border-anil-linea px-6 flex items-center justify-between gap-4">
+<!-- Buscador Global -->
+<div class="flex-1 max-w-xl">
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-anil-linea text-[20px]">search</span>
+<input class="w-full h-10 pl-10 pr-4 bg-cartulina rounded-lg border-2 border-anil-linea text-anil-linea font-archivo text-[13px] placeholder:text-anil-linea/60 focus:outline-none focus:ring-1 focus:ring-rosa-mexicano shadow-dura-anil-sm" placeholder="Buscar refugio, usuario, folio o documento..." type="text"/>
+</div>
+</div>
+<!-- Lado Derecho: Avatar de Daniela Cruz (SIN botón "Cantar carta") -->
+<div class="flex items-center gap-3">
+<div class="flex flex-col text-right">
+<span class="font-archivo font-bold text-[14px] text-anil-hondo leading-tight">Daniela Cruz</span>
+<span class="font-archivo font-bold text-[11px] text-rosa-mexicano tracking-wide">Administradora</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-papel-crema border-[2.5px] border-anil-linea flex items-center justify-center shadow-dura-anil-sm overflow-hidden">
+<div class="w-full h-full bg-anil-claro flex items-center justify-center text-anil-hondo">
+<span class="material-symbols-outlined text-[24px]">person</span>
+</div>
+</div>
+</div>
+</header>
+<!-- ÁREA DE CONTENIDO PRINCIPAL -->
+<main class="relative pt-20 p-6 flex-1 flex flex-col gap-6"><div class="flex flex-col w-full relative">
+<!-- SCRIPT PARA AJUSTAR NAVEGACIÓN ACTIVA EN EL SHELL (Usuarios y roles) -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const navLinks = document.querySelectorAll('aside nav a');
+      navLinks.forEach(link => {
+        if (link.textContent.includes('Usuarios y roles')) {
+          link.className = "flex items-center justify-between px-3.5 py-2.5 rounded-lg bg-cempasuchil text-anil-linea font-archivo font-bold text-[14px] border-2 border-anil-hondo shadow-[3px_3px_0px_#141C4D]";
+          if (!link.querySelector('.bean-indicator')) {
+            const bean = document.createElement('span');
+            bean.className = 'bean-indicator w-4 h-2.5 rounded-full bg-frijol-marcador rotate-[-20deg] inline-block shadow-[1px_1px_0px_#141C4D]';
+            bean.title = 'Marcador de lotería';
+            link.appendChild(bean);
+          }
+        } else if (link.textContent.includes('Refugios')) {
+          link.className = "flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-papel-crema/85 hover:bg-anil-linea/70 hover:text-papel-crema transition-colors border border-transparent font-archivo font-semibold text-[14px]";
+          const oldBean = link.querySelector('span.w-4');
+          if (oldBean) oldBean.remove();
+        }
+      });
+    });
+  </script>
+<!-- ENCABEZADO DE SECCIÓN -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b-2 border-anil-linea">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded bg-anil-hondo text-cempasuchil font-archivo font-black text-label-sm border border-anil-linea shadow-dura-anil-sm">
+          № 03
+        </span>
+<span class="font-archivo font-bold text-label-sm uppercase tracking-wider text-rosa-tinta">Padrón Oficial y Permisos</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-secondary-deep uppercase tracking-tight">Usuarios y roles</h1>
+<p class="font-body-md text-body-md text-secondary-deep/80">Gestión de cuentas, asignación de permisos y control de acceso a la plataforma.</p>
+</div>
+<!-- Contador con estilo estampa serigráfica -->
+<div class="flex items-center gap-3 self-start md:self-auto bg-cartulina px-4 py-2.5 rounded-xl border-2 border-anil-linea shadow-dura-anil">
+<div class="w-9 h-9 rounded-lg bg-cempasuchil flex items-center justify-center border-2 border-anil-linea text-anil-hondo">
+<span class="material-symbols-outlined text-[22px]">group</span>
+</div>
+<div class="flex flex-col">
+<span class="font-archivo font-extrabold text-[18px] text-anil-hondo leading-none">1,248</span>
+<span class="font-archivo font-bold text-label-sm text-anil-hondo/70 uppercase">Cuentas registradas</span>
+</div>
+</div>
+</div>
+<!-- BARRA DE HERRAMIENTAS Y FILTROS -->
+<div class="mt-6 flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+<!-- Buscador de usuarios -->
+<div class="relative w-full xl:max-w-md">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-anil-linea text-[22px]">search</span>
+<input class="w-full h-[48px] pl-11 pr-4 bg-cartulina rounded-lg border-2 border-anil-linea text-anil-linea font-archivo font-medium text-body-md placeholder:text-anil-linea/50 shadow-dura-anil-sm focus:outline-none focus:ring-0 focus:shadow-[4px_4px_0px_#D6006F] transition-shadow" placeholder="Buscar por nombre, correo o identificador..." type="text" value="Mario López"/>
+</div>
+<!-- Filtros de Rol (Chips estilo lotería) -->
+<div class="flex flex-wrap items-center gap-2">
+<!-- Todos (Activo) -->
+<button class="h-[38px] px-4 rounded-full bg-anil-hondo text-cartulina border-2 border-anil-linea flex items-center gap-1.5 shadow-[3px_3px_0px_#FFB30F] font-archivo font-bold text-label-md cursor-pointer">
+<span class="material-symbols-outlined text-[18px] text-cempasuchil">check</span>
+<span>Todos</span>
+<span class="ml-1 px-1.5 py-0.2 rounded-full bg-cartulina/20 text-[11px]">1,248</span>
+</button>
+<!-- Adoptantes -->
+<button class="h-[38px] px-4 rounded-full bg-papel-crema text-anil-linea border-2 border-anil-linea flex items-center gap-1.5 font-archivo font-bold text-label-md hover:bg-cempasuchil/20 transition-all cursor-pointer">
+<span>Adoptantes</span>
+<span class="px-1.5 py-0.2 rounded-full bg-anil-linea/10 text-[11px] font-extrabold">1,180</span>
+</button>
+<!-- Refugios -->
+<button class="h-[38px] px-4 rounded-full bg-papel-crema text-anil-linea border-2 border-anil-linea flex items-center gap-1.5 font-archivo font-bold text-label-md hover:bg-cempasuchil/20 transition-all cursor-pointer">
+<span>Refugios</span>
+<span class="px-1.5 py-0.2 rounded-full bg-anil-linea/10 text-[11px] font-extrabold">14</span>
+</button>
+<!-- Administradores -->
+<button class="h-[38px] px-4 rounded-full bg-papel-crema text-anil-linea border-2 border-anil-linea flex items-center gap-1.5 font-archivo font-bold text-label-md hover:bg-cempasuchil/20 transition-all cursor-pointer">
+<span>Administradores</span>
+<span class="px-1.5 py-0.2 rounded-full bg-anil-linea/10 text-[11px] font-extrabold">4</span>
+</button>
+<!-- Botón de Exportar / Sello -->
+<button class="ml-auto xl:ml-2 h-[38px] px-3.5 rounded-lg bg-cartulina text-anil-linea border-2 border-anil-linea flex items-center gap-1.5 shadow-dura-anil-sm font-archivo font-bold text-label-sm hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all cursor-pointer">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>Exportar padrón</span>
+</button>
+</div>
+</div>
+<!-- TABLA DE USUARIOS ESTILO CARTULINA Y SERIGRAFÍA -->
+<div class="mt-6 rounded-xl border-2 border-anil-linea bg-cartulina shadow-dura-anil overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<!-- Encabezado de tabla -->
+<thead>
+<tr class="bg-anil-claro border-b-2 border-anil-linea text-anil-hondo font-archivo font-extrabold text-label-sm tracking-wider uppercase">
+<th class="py-3.5 px-4 w-[280px]">Avatar y Nombre</th>
+<th class="py-3.5 px-4">Correo electrónico</th>
+<th class="py-3.5 px-4 w-[160px]">Rol asignado</th>
+<th class="py-3.5 px-4 w-[150px]">Registro</th>
+<th class="py-3.5 px-4 w-[140px]">Estado</th>
+<th class="py-3.5 px-4 text-right w-[140px]">Acciones</th>
+</tr>
+</thead>
+<tbody class="divide-y-2 divide-anil-linea font-archivo text-body-md text-anil-linea">
+<!-- FILA 1: MARIO LÓPEZ (Seleccionado / Enfocado para suspensión) -->
+<tr class="bg-rosa-suave/50 transition-colors">
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<!-- Frijol marcador que indica foco de selección activa -->
+<span class="w-3.5 h-2 rounded-full bg-frijol-marcador rotate-[-20deg] inline-block shadow-[1px_1px_0px_#1F2A6B] shrink-0" title="Cuenta en foco"></span>
+<div class="w-10 h-10 rounded-full bg-rosa-mexicano/20 border-2 border-anil-linea flex items-center justify-center font-archivo font-extrabold text-rosa-pressed text-label-md shrink-0 shadow-dura-anil-sm">
+                  ML
+                </div>
+<div class="flex flex-col min-w-0">
+<span class="font-archivo font-bold text-anil-hondo text-body-md truncate">Mario López</span>
+<span class="font-archivo text-[12px] text-anil-linea/70">ID: USR-8921</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-4 font-medium text-anil-hondo">mario.lopez@gmail.com</td>
+<td class="py-3 px-4">
+<!-- Sello Adoptante -->
+<span class="inline-flex items-center px-2.5 py-1 rounded-md bg-anil-claro text-anil-hondo border-[1.5px] border-anil-linea font-archivo font-bold text-label-sm uppercase tracking-wide shadow-[1px_1px_0px_#1F2A6B]">
+                Adoptante
+              </span>
+</td>
+<td class="py-3 px-4 text-body-sm font-medium">14 ago 2026</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-verde-suave text-verde-nopal border-[1.5px] border-verde-nopal font-archivo font-extrabold text-label-sm">
+<span class="w-2 h-2 rounded-full bg-verde-nopal"></span>
+                Activa
+              </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="px-2.5 py-1 rounded bg-peligro-bg text-peligro-borde border-[1.5px] border-peligro-borde font-archivo font-bold text-label-sm hover:bg-peligro-borde hover:text-cartulina transition-colors">
+                  Suspender
+                </button>
+<button class="w-7 h-7 rounded border border-anil-linea flex items-center justify-center text-anil-linea hover:bg-cartulina">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- FILA 2: ARTURO MARTÍNEZ -->
+<tr class="bg-papel-crema hover:bg-cempasuchil/10 transition-colors">
+<td class="py-3 px-4">
+<div class="flex items-center gap-3 pl-5">
+<div class="w-10 h-10 rounded-full bg-cempasuchil-claro border-2 border-anil-linea flex items-center justify-center font-archivo font-extrabold text-cempasuchil-oscuro text-label-md shrink-0 shadow-dura-anil-sm">
+                  AM
+                </div>
+<div class="flex flex-col min-w-0">
+<span class="font-archivo font-bold text-anil-hondo text-body-md truncate">Arturo Martínez</span>
+<span class="font-archivo text-[12px] text-anil-linea/70">ID: USR-9043</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-4 font-medium text-anil-hondo">adoptante@huellitas.mx</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-md bg-anil-claro text-anil-hondo border-[1.5px] border-anil-linea font-archivo font-bold text-label-sm uppercase tracking-wide shadow-[1px_1px_0px_#1F2A6B]">
+                Adoptante
+              </span>
+</td>
+<td class="py-3 px-4 text-body-sm font-medium">02 oct 2026</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-verde-suave text-verde-nopal border-[1.5px] border-verde-nopal font-archivo font-extrabold text-label-sm">
+<span class="w-2 h-2 rounded-full bg-verde-nopal"></span>
+                Activa
+              </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="px-2.5 py-1 rounded bg-cartulina text-anil-linea border-[1.5px] border-anil-linea font-archivo font-bold text-label-sm hover:bg-anil-claro">
+                  Editar
+                </button>
+<button class="w-7 h-7 rounded border border-anil-linea flex items-center justify-center text-anil-linea hover:bg-cartulina">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- FILA 3: MARIANA SOLÍS OLVERA -->
+<tr class="bg-cartulina hover:bg-cempasuchil/10 transition-colors">
+<td class="py-3 px-4">
+<div class="flex items-center gap-3 pl-5">
+<div class="w-10 h-10 rounded-full bg-cempasuchil border-2 border-anil-linea flex items-center justify-center font-archivo font-extrabold text-anil-hondo text-label-md shrink-0 shadow-dura-anil-sm">
+                  MS
+                </div>
+<div class="flex flex-col min-w-0">
+<span class="font-archivo font-bold text-anil-hondo text-body-md truncate">Mariana Solís Olvera</span>
+<span class="font-archivo text-[12px] text-anil-linea/70">ID: SHL-102</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-4 font-medium text-anil-hondo">refugio@huellitas.mx</td>
+<td class="py-3 px-4">
+<!-- Sello Refugio -->
+<span class="inline-flex items-center px-2.5 py-1 rounded-md bg-cempasuchil-claro text-cempasuchil-oscuro border-[1.5px] border-anil-linea font-archivo font-extrabold text-label-sm uppercase tracking-wide shadow-[1px_1px_0px_#1F2A6B]">
+                Refugio
+              </span>
+</td>
+<td class="py-3 px-4 text-body-sm font-medium">12 mar 2025</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-verde-suave text-verde-nopal border-[1.5px] border-verde-nopal font-archivo font-extrabold text-label-sm">
+<span class="w-2 h-2 rounded-full bg-verde-nopal"></span>
+                Activa
+              </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="px-2.5 py-1 rounded bg-cartulina text-anil-linea border-[1.5px] border-anil-linea font-archivo font-bold text-label-sm hover:bg-anil-claro">
+                  Editar
+                </button>
+<button class="w-7 h-7 rounded border border-anil-linea flex items-center justify-center text-anil-linea hover:bg-cartulina">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- FILA 4: LUCÍA MORALES PEÑA -->
+<tr class="bg-papel-crema hover:bg-cempasuchil/10 transition-colors">
+<td class="py-3 px-4">
+<div class="flex items-center gap-3 pl-5">
+<div class="w-10 h-10 rounded-full bg-papel-crema border-2 border-anil-linea flex items-center justify-center font-archivo font-extrabold text-anil-hondo text-label-md shrink-0 shadow-dura-anil-sm">
+                  LM
+                </div>
+<div class="flex flex-col min-w-0">
+<span class="font-archivo font-bold text-anil-hondo text-body-md truncate">Lucía Morales Peña</span>
+<span class="font-archivo text-[12px] text-anil-linea/70">ID: SHL-241</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-4 font-medium text-anil-hondo">lucia@patitasdesantiago.org</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-md bg-cempasuchil-claro text-cempasuchil-oscuro border-[1.5px] border-anil-linea font-archivo font-extrabold text-label-sm uppercase tracking-wide shadow-[1px_1px_0px_#1F2A6B]">
+                Refugio
+              </span>
+</td>
+<td class="py-3 px-4 text-body-sm font-medium">18 oct 2026</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cempasuchil-claro text-cempasuchil-oscuro border-[1.5px] border-cempasuchil-oscuro font-archivo font-extrabold text-label-sm">
+<span class="w-2 h-2 rounded-full bg-cempasuchil"></span>
+                En verificación
+              </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="px-2.5 py-1 rounded bg-cartulina text-anil-linea border-[1.5px] border-anil-linea font-archivo font-bold text-label-sm hover:bg-anil-claro">
+                  Revisar
+                </button>
+<button class="w-7 h-7 rounded border border-anil-linea flex items-center justify-center text-anil-linea hover:bg-cartulina">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- FILA 5: ROBERTO GARZA -->
+<tr class="bg-cartulina hover:bg-cempasuchil/10 transition-colors">
+<td class="py-3 px-4">
+<div class="flex items-center gap-3 pl-5">
+<div class="w-10 h-10 rounded-full bg-peligro-bg border-2 border-anil-linea flex items-center justify-center font-archivo font-extrabold text-peligro-borde text-label-md shrink-0 shadow-dura-anil-sm">
+                  RG
+                </div>
+<div class="flex flex-col min-w-0">
+<span class="font-archivo font-bold text-anil-hondo text-body-md truncate">Roberto Garza</span>
+<span class="font-archivo text-[12px] text-anil-linea/70">ID: USR-4112</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-4 font-medium text-anil-hondo">rgarza@yahoo.com</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-md bg-anil-claro text-anil-hondo border-[1.5px] border-anil-linea font-archivo font-bold text-label-sm uppercase tracking-wide shadow-[1px_1px_0px_#1F2A6B]">
+                Adoptante
+              </span>
+</td>
+<td class="py-3 px-4 text-body-sm font-medium">05 may 2026</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-peligro-bg text-peligro-borde border-[1.5px] border-peligro-borde font-archivo font-extrabold text-label-sm">
+<span class="w-2 h-2 rounded-full bg-peligro-borde"></span>
+                Suspendida
+              </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="px-2.5 py-1 rounded bg-cartulina text-verde-nopal border-[1.5px] border-verde-nopal font-archivo font-bold text-label-sm hover:bg-verde-suave">
+                  Reactivar
+                </button>
+<button class="w-7 h-7 rounded border border-anil-linea flex items-center justify-center text-anil-linea hover:bg-cartulina">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- FILA 6: DANIELA CRUZ (Administrador) -->
+<tr class="bg-papel-crema hover:bg-cempasuchil/10 transition-colors">
+<td class="py-3 px-4">
+<div class="flex items-center gap-3 pl-5">
+<div class="w-10 h-10 rounded-full bg-anil-hondo border-2 border-anil-linea flex items-center justify-center font-archivo font-extrabold text-cempasuchil text-label-md shrink-0 shadow-dura-anil-sm">
+                  DC
+                </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2">
+<span class="font-archivo font-bold text-anil-hondo text-body-md truncate">Daniela Cruz</span>
+<span class="px-1.5 py-0.2 rounded bg-cempasuchil text-anil-hondo font-archivo font-black text-[9px] uppercase">Tú</span>
+</div>
+<span class="font-archivo text-[12px] text-anil-linea/70">ID: ADM-0001</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-4 font-medium text-anil-hondo">admin@huellitas.mx</td>
+<td class="py-3 px-4">
+<!-- Sello Administrador -->
+<span class="inline-flex items-center px-2.5 py-1 rounded-md bg-anil-hondo text-cempasuchil border-[1.5px] border-anil-linea font-archivo font-extrabold text-label-sm uppercase tracking-wide shadow-[1px_1px_0px_#1F2A6B]">
+                Administrador
+              </span>
+</td>
+<td class="py-3 px-4 text-body-sm font-medium">10 ene 2025</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-verde-suave text-verde-nopal border-[1.5px] border-verde-nopal font-archivo font-extrabold text-label-sm">
+<span class="w-2 h-2 rounded-full bg-verde-nopal"></span>
+                Activa
+              </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="px-2.5 py-1 rounded bg-cartulina text-anil-linea/60 border-[1.5px] border-anil-linea/60 font-archivo font-bold text-label-sm cursor-not-allowed">
+                  Editar
+                </button>
+<button class="w-7 h-7 rounded border border-anil-linea/60 flex items-center justify-center text-anil-linea/60 cursor-not-allowed">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Paginación estilo juego tradicional -->
+<div class="px-4 py-3 bg-papel-crema border-t-2 border-anil-linea flex flex-col sm:flex-row items-center justify-between gap-3 text-body-sm">
+<div class="text-anil-linea font-medium">
+        Mostrando <span class="font-bold text-anil-hondo">1 al 6</span> de 1,248 cuentas en la baraja
+      </div>
+<div class="flex items-center gap-1.5">
+<button class="w-8 h-8 rounded border-2 border-anil-linea bg-cartulina text-anil-linea flex items-center justify-center font-bold text-label-sm opacity-50 cursor-not-allowed">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded border-2 border-anil-linea bg-cempasuchil text-anil-hondo flex items-center justify-center font-archivo font-black text-label-sm shadow-[1px_1px_0px_#1F2A6B]">
+          1
+        </button>
+<button class="w-8 h-8 rounded border-2 border-anil-linea bg-cartulina text-anil-linea flex items-center justify-center font-archivo font-bold text-label-sm hover:bg-anil-claro">
+          2
+        </button>
+<button class="w-8 h-8 rounded border-2 border-anil-linea bg-cartulina text-anil-linea flex items-center justify-center font-archivo font-bold text-label-sm hover:bg-anil-claro">
+          3
+        </button>
+<span class="px-1 text-anil-linea font-bold">...</span>
+<button class="w-8 h-8 rounded border-2 border-anil-linea bg-cartulina text-anil-linea flex items-center justify-center font-archivo font-bold text-label-sm hover:bg-anil-claro">
+          208
+        </button>
+<button class="w-8 h-8 rounded border-2 border-anil-linea bg-cartulina text-anil-linea flex items-center justify-center font-bold text-label-sm shadow-dura-anil-sm hover:translate-x-0.5">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- ========================================================================= -->
+<!-- MODAL DE DIÁLOGO: SUSPENSIÓN DE CUENTA                                    -->
+<!-- ========================================================================= -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1F2A6B]/60 backdrop-blur-[2px]" id="modal-suspension">
+<!-- TARJETA MODAL (ESTILO CARTA DE LOTERÍA) -->
+<div class="relative w-full max-w-[560px] bg-cartulina rounded-2xl border-[3px] border-anil-linea shadow-[8px_8px_0px_#1F2A6B] overflow-hidden flex flex-col animate-in fade-in zoom-in-95 duration-150">
+<!-- Borde interno superior decorativo tipo naipe -->
+<div class="h-2 w-full bg-peligro-borde"></div>
+<div class="p-6 md:p-8 flex flex-col gap-6">
+<!-- Fila superior: Ícono de advertencia y número de folio/carta -->
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="w-14 h-14 rounded-xl bg-peligro-bg border-[2.5px] border-peligro-borde flex items-center justify-center text-peligro-borde shadow-[3px_3px_0px_#B42318]">
+<span class="material-symbols-outlined text-[32px]">no_accounts</span>
+</div>
+<div class="flex flex-col">
+<span class="font-archivo font-black text-label-sm uppercase tracking-wider text-peligro-borde">Acción de Control</span>
+<span class="font-archivo text-body-sm text-anil-linea/80">Protocolo de seguridad vecinal</span>
+</div>
+</div>
+<!-- Índice de carta de lotería -->
+<div class="w-9 h-9 rounded-lg border-2 border-anil-linea bg-papel-crema flex items-center justify-center font-carta-numero text-carta-numero text-anil-hondo shadow-dura-anil-sm">
+            !
+          </div>
+</div>
+<!-- Título y descripción -->
+<div class="flex flex-col gap-2">
+<h2 class="font-headline-md text-headline-md text-secondary-deep uppercase leading-tight">
+            ¿Suspender la cuenta de Mario López?
+          </h2>
+<div class="p-3.5 rounded-lg bg-peligro-bg/50 border-l-4 border-peligro-borde text-anil-hondo">
+<p class="font-body-md text-body-md font-medium">
+              No podrá entrar a la plataforma hasta que la reactives. Sus solicitudes activas se pausarán automáticamente.
+            </p>
+</div>
+</div>
+<!-- Campo obligatorio de motivo -->
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<label class="font-archivo font-bold text-label-md text-anil-hondo" for="motivo-suspension">
+              Motivo de la suspensión <span class="text-peligro-borde">*</span>
+</label>
+<span class="font-archivo text-[11px] text-anil-linea/60 font-semibold">Requerido para la bitácora</span>
+</div>
+<div class="relative">
+<textarea class="w-full p-3.5 bg-papel-crema rounded-lg border-2 border-anil-linea text-anil-hondo font-archivo font-medium text-body-md shadow-dura-anil-sm focus:outline-none focus:ring-0 focus:border-rosa-tinta focus:shadow-[4px_4px_0px_#D6006F] transition-all" id="motivo-suspension" placeholder="Describe detalladamente la razón (incumplimiento de términos, reporte vecinal, etc.)..." rows="3">Incumplimiento reiterado en las condiciones del acuerdo de visita domiciliaria.</textarea>
+</div>
+<span class="font-archivo text-[12px] text-anil-linea/70 italic">
+            Este texto se archivará en la ficha del adoptante y se enviará como notificación oficial al usuario.
+          </span>
+</div>
+<!-- Botones de Acción -->
+<div class="pt-2 flex flex-col-reverse sm:flex-row items-center justify-end gap-3">
+<!-- Cancelar -->
+<button class="w-full sm:w-auto h-[52px] px-6 rounded-xl bg-cartulina text-anil-linea border-2 border-anil-linea font-archivo font-bold text-label-lg shadow-dura-anil-sm hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all active:bg-papel-crema cursor-pointer text-center flex items-center justify-center" onclick="document.getElementById('modal-suspension').classList.add('hidden')" type="button">
+            Cancelar
+          </button>
+<!-- Suspender Cuenta (Peligro) -->
+<button class="w-full sm:w-auto h-[52px] px-7 rounded-xl bg-peligro-borde text-cartulina border-2 border-anil-linea font-archivo font-extrabold text-label-lg shadow-[4px_4px_0px_#1F2A6B] hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none transition-all active:bg-red-800 cursor-pointer flex items-center justify-center gap-2" onclick="document.getElementById('modal-suspension').classList.add('hidden')" type="button">
+<span class="material-symbols-outlined text-[20px]">block</span>
+<span>Suspender cuenta</span>
+</button>
+</div>
+</div>
+<!-- Pie estético con sello de registro serigráfico -->
+<div class="px-8 py-3 bg-anil-claro/50 border-t border-anil-linea/40 flex items-center justify-between text-[11px] font-archivo text-anil-linea/70">
+<span>Tulancingo de Bravo · Sistema de Padrón</span>
+<span class="font-mono">REF: MOD-USR-8921-SUSP</span>
+</div>
+</div>
+</div>
+</div></main>
+</div>
+<!-- Script interactivo de selección de fila con frijol marcador -->
+<script>
+    function selectRow(rowElement, shelterId) {
+      const tbody = rowElement.closest('tbody');
+      const rows = tbody.querySelectorAll('tr');
+      
+      rows.forEach((r, idx) => {
+        // Remover estilos de fila activa
+        r.classList.remove('bg-rosa-suave/40', 'border-y-2', 'border-anil-linea');
+        if (idx % 2 === 0) {
+          r.classList.add('bg-cartulina');
+          r.classList.remove('bg-papel-crema');
+        } else {
+          r.classList.add('bg-papel-crema');
+          r.classList.remove('bg-cartulina');
+        }
+        
+        // Quitar frijol marcador y reponer sangría
+        const bean = r.querySelector('.row-bean');
+        if (bean) {
+          bean.remove();
+        }
+        const titleContainer = r.querySelector('td:first-child > div');
+        if (titleContainer && !titleContainer.classList.contains('pl-6')) {
+          titleContainer.classList.add('pl-6');
+        }
+      });
+
+      // Activar la fila cliqueada
+      rowElement.classList.remove('bg-cartulina', 'bg-papel-crema');
+      rowElement.classList.add('bg-rosa-suave/40', 'border-y-2', 'border-anil-linea');
+      
+      const targetDiv = rowElement.querySelector('td:first-child > div');
+      if (targetDiv) {
+        targetDiv.classList.remove('pl-6');
+        if (!targetDiv.querySelector('.row-bean')) {
+          const beanSpan = document.createElement('span');
+          beanSpan.className = 'row-bean w-3.5 h-2.5 rounded-full bg-frijol-marcador rotate-[-20deg] inline-block shadow-[1px_1px_0px_#1F2A6B] flex-shrink-0';
+          beanSpan.title = 'Marcador de lotería';
+          targetDiv.insertBefore(beanSpan, targetDiv.firstChild);
+        }
+      }
+    }
+  </script>
+<script src="js/prototipo.js" data-pagina="admin-usuarios"></script>
+</body></html>
