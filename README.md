@@ -2,9 +2,10 @@
 
 Propuesta de diseño de una aplicación web responsiva para adoptar perros y gatos rescatados en Tulancingo de Bravo, Hidalgo. Es la continuación del sitio web [Huellitas Tulancingo](https://arturomqii005.github.io/Huellitas-WEB/) y conserva su identidad de **lotería mexicana**: cada peludo es una carta con número, nombre y un verso.
 
-- **Integrantes:** Luis Arturo Jiménez Morales y Sebastián Banda Pasquel
+- **Autor:** Luis Arturo Jiménez Morales
 - **Institución:** Universidad Politécnica de Tulancingo
 - **Herramientas de IA:** Google Stitch (interfaces) y Claude (especificación y prompts)
+- **Prototipo en Google Stitch:** https://stitch.withgoogle.com/projects/14979378337751651742
 - **Sitio web del proyecto:** https://arturomqii005.github.io/Huellitas-WEB/
 
 > Proyecto académico. Los animales, refugios, cifras, cuentas y contactos son ilustrativos.
@@ -16,6 +17,7 @@ Propuesta de diseño de una aplicación web responsiva para adoptar perros y gat
 | [`DESIGN.md`](DESIGN.md) | Especificación completa en formato DESIGN.md: objetivo, roles y permisos, colores, tipografía, componentes, navegación, módulos, lineamientos UX/UI, reglas del sistema y prompts por pantalla. |
 | [`EVIDENCIAS.md`](EVIDENCIAS.md) | Registro del uso de IA: herramientas, prompts principales y modificaciones hechas para mejorar la propuesta inicial. |
 | `evidencias/` | Capturas del proceso en Google Stitch y GitHub. |
+| [`prototipo/`](prototipo/) | Las 13 pantallas exportadas de Stitch, conectadas entre sí, con inicio de sesión simulado por rol y restricción de acceso. Se abre con Live Server desde `prototipo/index.html`. |
 | `README.md` | Esta descripción. |
 
 ## El problema

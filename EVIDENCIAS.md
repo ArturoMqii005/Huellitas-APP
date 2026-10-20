@@ -17,7 +17,7 @@ Registro de cómo se usó la inteligencia artificial generativa para diseñar la
 | 1 | Se pidió a Claude el prompt y la especificación de la aplicación | DESIGN.md v1 con sistema de diseño, 14 módulos y prompts |
 | 2 | Primera generación en Google Stitch | Pantallas del adoptante en versión de celular |
 | 3 | Revisión de la propuesta contra los requisitos de la actividad | DESIGN.md v2: aplicación web responsiva, 4 roles, acceso, panel del refugio y administración |
-| 4 | Generación de las interfaces por rol en Stitch | Pantallas web y de celular para visitante, adoptante, refugio y administrador (en proceso) |
+| 4 | Generación de las interfaces por rol en Stitch | Pantallas web y de celular para visitante, adoptante, refugio y administrador |
 
 ---
 
@@ -107,7 +107,7 @@ El DESIGN.md v2 se volvió a validar con el verificador oficial: **0 errores y 0
 
 ## Iteración 4 · Interfaces por rol en Google Stitch
 
-Con el DESIGN.md v2 se generan las pantallas que faltan, usando los prompts de la sección **Prompts por pantalla** del DESIGN.md:
+Con el DESIGN.md v2 y las ilustraciones originales del sitio web (9 imágenes PNG) se generaron las pantallas de cada rol. Los prompts base están en la sección **Prompts por pantalla** del DESIGN.md:
 
 | Rol | Prompts | Modo |
 | --- | --- | --- |
@@ -129,18 +129,60 @@ Cuando una pantalla generada no respeta el diseño, se corrige con prompts corto
 - «Deja un solo botón rosa en la pantalla; los demás deben ser secundarios.»
 - «Agrega la etiqueta cempasúchil "Refugio" junto al nombre en el menú lateral.»
 
+### Pantallas generadas
+
+| Rol | Pantallas | Versión |
+| --- | --- | --- |
+| Visitante | Bienvenida · Entrar | Celular y web |
+| Adoptante | Inicio · La tabla · Ficha de Luna · Solicitud y ¡Lotería! · Inicio (web) | Celular y web |
+| Refugio | Resumen · Solicitudes · Solicitudes (detalle) | Web |
+| Administrador | Refugios · Usuarios y roles | Web |
+| Restricción de acceso | Acceso denegado | Web |
+
 ### Registro de ajustes en Stitch
 
-Cada corrección que se pida en Stitch se anota aquí, con su captura de antes y después.
+| # | Pantalla | Problema en la versión generada | Prompt de corrección (resumen) | Resultado |
+| --- | --- | --- | --- | --- |
+| 1 | Bienvenida, Inicio, La tabla, Ficha y Solicitud | Luna aparecía distinta en cada pantalla, con otro número, otro verso y el nombre repetido («LA LUNA») | «Unifica a Luna en todas las pantallas… siempre carta número 1, nombre una sola vez y su verso oficial» | Se corrigieron el número, el verso y el nombre, pero la IA dibujó otra perrita |
+| 2 | Las mismas cinco | La ilustración seguía siendo distinta a la del sitio web | Se adjuntó la imagen original: «Usa la imagen adjunta como la ilustración de Luna… no la redibujes» | La misma Luna del sitio en todas las pantallas |
+| 3 | Solicitud | El paso 4 de 5 decía «Confirmar y enviar solicitud» | «En el paso 4 de 5 cambia el botón a "Continuar"…» | El envío queda para la revisión final |
+| 4 | La tabla | Las cartas eran dibujos de la IA con textos encimados («LA GATA NUBE», «EL TIGRE») | Se adjuntaron las 9 ilustraciones: «Usa estas imágenes como las ilustraciones de las cartas… sin números ni nombres dentro de la imagen» | Las 9 cartas con las ilustraciones originales |
+| 5 | Entrar (web) | Luna era otra perrita con el texto «EL PERRO», la barra superior no era la del visitante y el pie decía 2024 | «Usa la imagen adjunta para la carta de Luna… cambia la barra superior por la del visitante… cambia el año a 2026» | Acceso coherente con el rol Visitante |
+| 6 | Refugio · Resumen | Versos inventados en las minicartas y fecha con el día de la semana equivocado | «Corrige los versos de las minicartas con los oficiales… cambia la fecha a "Martes, 20 de octubre de 2026"» | Versos y fecha correctos |
+| 7 | Refugio · Solicitudes | Columnas angostas con textos encimados y la coordinadora del refugio marcada como «Administradora» | «Haz que el tablero ocupe todo el ancho… cambia "Administradora" por "Coordinadora", porque Mariana pertenece al rol Refugio» | Tablero legible y roles sin mezclar |
+| 8 | Refugio · Solicitudes | Los nombres de los adoptantes se cortaban; en un intento salieron escritos en vertical | «Muestra el nombre completo del adoptante… crea una variante con el detalle abierto como panel de 420 px» | Dos estados del tablero: cerrado y con detalle |
+| 9 | Admin · Refugios | La pantalla salió sin estilos y con el botón «Cantar carta», que es del rol Refugio | «Aplica completo el DESIGN.md… quita el botón "Cantar carta", porque esa acción es solo del rol Refugio» | Panel del administrador con su propio menú añil hondo |
+| 10 | Adoptante · Inicio (web) | Dos barras superiores encimadas, miniatura equivocada de Luna y otro nombre de refugio | «Deja solo la barra del adoptante… usa la imagen adjunta… cambia a "Refugio San Roque Tulancingo"» | Una sola barra superior y la Luna original |
 
-| Pantalla | Problema en la primera versión | Prompt de corrección | Resultado |
-| --- | --- | --- | --- |
-| | | | |
+### Capturas del proceso
+
+| Antes | Después |
+| --- | --- |
+| ![Luna distinta en cada pantalla](evidencias/06-stitch-correccion-luna-antes.png) | ![Luna con la imagen original](evidencias/11-stitch-luna-todas-las-pantallas.png) |
+| ![La tabla antes](evidencias/12-stitch-tabla-imagenes-antes.png) | ![La tabla con las 9 ilustraciones](evidencias/13-stitch-tabla-imagenes-despues.png) |
+| ![Acceso web, primera versión](evidencias/15-stitch-acceso-web-v1.png) | ![Acceso web corregido](evidencias/16-stitch-acceso-web-v2.png) |
+| ![Resumen del refugio, primera versión](evidencias/18-stitch-panel-refugio-v1.png) | ![Resumen del refugio corregido](evidencias/19-stitch-panel-refugio-v2.png) |
+| ![Tablero con textos encimados](evidencias/20-stitch-tablero-solicitudes-v1.png) | ![Tablero final](evidencias/23-stitch-tablero-solicitudes-final.png) |
+
+**Pantallas del administrador y de acceso denegado**
+
+![Administrador · Refugios](evidencias/24-stitch-admin-refugios.png)
+
+![Administrador · Usuarios y roles](evidencias/25-stitch-admin-usuarios.png)
+
+![Acceso denegado](evidencias/26-stitch-acceso-denegado.png)
+
+**Inicio web del adoptante: antes y después**
+
+| Antes | Después |
+| --- | --- |
+| ![Inicio web con dos barras](evidencias/27-stitch-adoptante-inicio-web.png) | ![Inicio web corregido](evidencias/28-stitch-adoptante-inicio-web-corregido.png) |
 
 ---
 
 ## Publicación
 
+- **Prototipo en Google Stitch:** https://stitch.withgoogle.com/projects/14979378337751651742
 - **Repositorio:** https://github.com/ArturoMqii005/Huellitas-APP
 
 ![Repositorio en GitHub](evidencias/04-github-repositorio.png)

@@ -599,6 +599,8 @@ Huellitas tiene **cuatro roles**. El rol pertenece a la cuenta y decide qué ve 
 ### Acceso y seguridad
 
 - Inicio de sesión con correo y contraseña (mínimo 8 caracteres) o con cuenta de Google.
+- Los errores se muestran debajo de cada campo. Si el correo o la contraseña no coinciden, el mensaje no dice cuál de los dos está mal.
+- Después de 3 intentos fallidos, el botón «Entrar» se bloquea 30 segundos.
 - Después de entrar, cada rol llega a su propia pantalla de inicio (ver la tabla de roles).
 - Las rutas `/panel` (Refugio) y `/admin` (Administrador) están protegidas. Si alguien entra sin permiso ve la pantalla **«Esta carta no es para ti»** con un botón para volver a su inicio.
 - Sesiones: 30 días para el adoptante, 12 horas para refugio y administrador.
@@ -1470,8 +1472,8 @@ Ayudar → Necesidades del mes → «Croquetas para perro» → monto o punto de
 | Rol | Nombre | Correo |
 | --- | --- | --- |
 | Adoptante | Arturo | adoptante@huellitas.mx |
-| Refugio | Refugio Huellitas Centro | refugio@huellitas.mx |
-| Administrador | Equipo Huellitas | admin@huellitas.mx |
+| Refugio | Mariana Solís · Refugio San Roque Tulancingo | refugio@huellitas.mx |
+| Administrador | Daniela Cruz | admin@huellitas.mx |
 
 ### Microcopy
 
@@ -1588,7 +1590,7 @@ Sección Yo. Avatar en sello festoneado, nombre y "Ayudante desde octubre de 202
 **P14 · Panel del refugio · Resumen · Web**
 
 ```
-Panel web del rol Refugio en Huellitas. Menú lateral añil de 264 px con foto y nombre "Refugio Huellitas Centro", etiqueta cempasúchil "Refugio" y opciones con ícono: Resumen (activa en pastilla cempasúchil con frijol), Peludos, Nueva carta, Solicitudes (contador rosa 7), Necesidades, Eventos, Reportes, Mensajes y Mi refugio. Contenido: título "Resumen", cuatro datos grandes en tarjetas con sombra dura (Peludos en adopción 12, Solicitudes nuevas 7, Adopciones este mes 3, Promedio de espera 63 días), gráfica de barras rosas de adopciones por mes, lista "Los que más han esperado" con minicartas y alerta "2 solicitudes llevan más de 48 horas sin respuesta".
+Panel web del rol Refugio en Huellitas. Menú lateral añil de 264 px con foto y nombre "Refugio San Roque Tulancingo", etiqueta cempasúchil "Refugio" y opciones con ícono: Resumen (activa en pastilla cempasúchil con frijol), Peludos, Nueva carta, Solicitudes (contador rosa 7), Necesidades, Eventos, Reportes, Mensajes y Mi refugio. Contenido: título "Resumen", cuatro datos grandes en tarjetas con sombra dura (Peludos en adopción 12, Solicitudes nuevas 7, Adopciones este mes 3, Promedio de espera 63 días), gráfica de barras rosas de adopciones por mes, lista "Los que más han esperado" con minicartas y alerta "2 solicitudes llevan más de 48 horas sin respuesta".
 ```
 
 **P15 · Peludos y generador de cartas · Web**
