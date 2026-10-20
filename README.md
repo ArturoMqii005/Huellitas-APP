@@ -4,7 +4,7 @@ Propuesta de diseño de una aplicación web responsiva para adoptar perros y gat
 
 - **Autor:** Luis Arturo Jiménez Morales
 - **Institución:** Universidad Politécnica de Tulancingo
-- **Herramientas de IA:** Google Stitch (interfaces) y Claude (especificación y prompts)
+- **Herramientas de IA:** Google Stitch (interfaces) y Claude (correción de paginas)
 - **Prototipo en Google Stitch:** https://stitch.withgoogle.com/projects/14979378337751651742
 - **Sitio web del proyecto:** https://arturomqii005.github.io/Huellitas-WEB/
 
